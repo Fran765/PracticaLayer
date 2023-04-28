@@ -15,7 +15,7 @@ import ejercicio3.dominio.portsout.LecturaDeConcursos;
 public class EnDiscoLecturaDeConcursos implements LecturaDeConcursos {
 
 	private FileReader lector;
-	BufferedReader buffer;
+	private BufferedReader buffer;
 	private String rutaArchivo;
 
 	public EnDiscoLecturaDeConcursos(String rutaArchivo) {

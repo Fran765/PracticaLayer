@@ -1,6 +1,5 @@
 package ejercicio2.dominio.model;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +29,17 @@ public class DefaultSaludoEmpleado implements SaludarEmpleado {
 	}
 
 	@Override
-	public void enviarNotificacion() throws IOException {
+	public void enviarNotificacion() throws DominioException{
 
-		llenarListaDeEmpleados(direccion.listaDeEmpleados());
+		try {
+			llenarListaDeEmpleados(direccion.listaDeEmpleados());
 
-		for (Empleado empleado : this.listaEmpleados) {
+			for (Empleado empleado : this.listaEmpleados) {
 
-			saludo(empleado);
+				saludo(empleado);
+			}
+		} catch (NotificarCumpleaniosException e) {
+			throw new DominioException(e.getMessage());
 		}
 
 	}

@@ -5,7 +5,7 @@ import ejercicio3.infraestructura.data.JdbcLecturaDeConcursos;
 import ejercicio3.infraestructura.data.JdbcRegistroInscripcion;
 import ejercicio3.infraestructura.ui.InscribirEnConcursoView;
 
-public class Main1 {
+public class Main {
 
 	public static void main(String[] args) {
 

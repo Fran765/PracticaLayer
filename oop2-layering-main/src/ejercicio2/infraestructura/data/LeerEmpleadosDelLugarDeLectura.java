@@ -14,6 +14,8 @@ import ejercicio2.dominio.portsout.NotificarCumpleaniosException;
 
 public class LeerEmpleadosDelLugarDeLectura implements LugarDeLectura {
 
+	private FileReader lector;
+	private BufferedReader buffer;
 	private String rutaArchivo;
 
 	public LeerEmpleadosDelLugarDeLectura(String rutaArchivo) throws NotificarCumpleaniosException {
@@ -27,21 +29,30 @@ public class LeerEmpleadosDelLugarDeLectura implements LugarDeLectura {
 	}
 
 	@Override
-	public List<EmpleadosRecord> listaDeEmpleados() throws IOException {
+	public List<EmpleadosRecord> listaDeEmpleados() throws NotificarCumpleaniosException {
 
 		List<EmpleadosRecord> misEmpleados = new ArrayList<EmpleadosRecord>();
+		try {
+			File archivo = new File(rutaArchivo);
+			FileReader lector = new FileReader(archivo);
+			BufferedReader buffer = new BufferedReader(lector);
+			String linea;
+			while ((linea = buffer.readLine()) != null) {
+				String[] partes = linea.split("\\, ");
 
-		File archivo = new File(rutaArchivo);
-		FileReader lector = new FileReader(archivo);
-		BufferedReader buffer = new BufferedReader(lector);
-		String linea;
-		while ((linea = buffer.readLine()) != null) {
-			String[] partes = linea.split("\\, ");
+				misEmpleados.add(new EmpleadosRecord(partes[0], partes[1], partes[2], partes[3]));
+			}
+		} catch (IOException e) {
+			throw new NotificarCumpleaniosException("No se pudieron leer los empleados");
+		} finally {
 
-			misEmpleados.add(new EmpleadosRecord(partes[0], partes[1], partes[2], partes[3]));
+			try {
+				buffer.close();
+				lector.close();
+			} catch (IOException e) {
+				throw new NotificarCumpleaniosException("Error al cerrar el archivo de lectura");
+			}
 		}
-		buffer.close();
-		lector.close();
 
 		return misEmpleados;
 
