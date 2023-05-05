@@ -45,7 +45,7 @@ public class DefaultSaludoEmpleado implements SaludarEmpleado {
 	}
 
 	private void saludo(Empleado empleado) {
-		if (esElCumpleaños(empleado.fechaCumpleanio())) {
+		if (esElCumpleanios(empleado.fechaCumpleanio())) {
 
 			try {
 				medioNotificacion.notificar(empleado.mail());
@@ -58,14 +58,14 @@ public class DefaultSaludoEmpleado implements SaludarEmpleado {
 	private void llenarListaDeEmpleados(List<EmpleadosRecord> empleados) {
 
 		for (EmpleadosRecord empleadoR : empleados) {
-			Empleado nuevo = new Empleado(empleadoR.nombre(), empleadoR.apellido(), empleadoR.fechaCumpleaños(),
+			Empleado nuevo = new Empleado(empleadoR.nombre(), empleadoR.apellido(), empleadoR.fechaCumpleanios(),
 					empleadoR.mail());
 			this.listaEmpleados.add(nuevo);
 		}
 
 	}
 
-	private boolean esElCumpleaños(LocalDate fecha) {
+	private boolean esElCumpleanios(LocalDate fecha) {
 
 		LocalDate today = LocalDate.now();
 
